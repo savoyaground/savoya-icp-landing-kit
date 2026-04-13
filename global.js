@@ -1,8 +1,9 @@
 /* =========================================
-   SAVOYA CORE JS SYSTEM
-   - Modular
-   - Webflow-safe
-   - Performance optimized
+   SAVOYA CORE JS SYSTEM (FINAL)
+   - Parallax (fixed)
+   - Fade system (working)
+   - Carousels
+   - Webflow-safe init
 ========================================= */
 
 /* =========================
@@ -13,13 +14,13 @@ function initHeroParallax() {
   const contentWrapper = document.querySelector('.v2-content-wrapper');
   const nav = document.querySelector('nav');
 
-  const bg = hero?.querySelector('.v2-hero-bg');
-  const content = hero?.querySelector('.v2-hero-content');
+  if (!hero || !contentWrapper) return;
 
-  if (!hero || !nav || !contentWrapper) return;
+  const bg = hero.querySelector('.v2-hero-bg');
+  const content = hero.querySelector('.v2-hero-content');
 
   function setHeroLayout() {
-    const navHeight = nav.offsetHeight;
+    const navHeight = nav ? nav.offsetHeight : 0;
 
     hero.style.top = navHeight + 'px';
     hero.style.height = `calc(85vh - ${navHeight}px)`;
@@ -32,6 +33,8 @@ function initHeroParallax() {
     const scrollY = window.scrollY;
     const heroHeight = hero.offsetHeight;
 
+    if (!heroHeight) return;
+
     let progress = Math.min(scrollY / (heroHeight * 0.75), 1);
     const eased = 1 - Math.pow(1 - progress, 3);
 
@@ -41,6 +44,7 @@ function initHeroParallax() {
 
     hero.style.transform = `translate3d(0, ${translateY}px, 0) scale(${scale})`;
     hero.style.opacity = opacity;
+    hero.style.transformOrigin = 'center top';
 
     if (bg) {
       bg.style.transform = `translate3d(0, ${translateY * 0.5}px, 0)`;
@@ -53,6 +57,7 @@ function initHeroParallax() {
   }
 
   let ticking = false;
+
   window.addEventListener('scroll', () => {
     if (!ticking) {
       requestAnimationFrame(() => {
@@ -65,6 +70,7 @@ function initHeroParallax() {
 
   setHeroLayout();
   handleScroll();
+
   window.addEventListener('resize', setHeroLayout);
 }
 
@@ -191,30 +197,27 @@ function initLogoCarousel() {
 }
 
 /* =========================
-   FADE SYSTEM (MERGED)
+   FADE SYSTEM (FINAL)
 ========================= */
 function initFadeSystem() {
   const sections = document.querySelectorAll('.fade-section');
+  if (!sections.length) return;
 
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (!entry.isIntersecting) return;
 
-      const fadeInItems = entry.target.querySelectorAll('.fade-in');
-      const scaleItems = entry.target.querySelectorAll('.fade-scale');
+      const items = entry.target.querySelectorAll('.fade-in, .fade-scale');
 
-      fadeInItems.forEach((el, index) => {
+      items.forEach((el, index) => {
         el.style.setProperty('--delay', `${index * 120}ms`);
         el.classList.add('show');
       });
 
-      scaleItems.forEach((el, index) => {
-        el.style.setProperty('--delay', `${index * 100}ms`);
-        el.classList.add('show');
-      });
+      observer.unobserve(entry.target);
     });
   }, {
-    threshold: 0.2,
+    threshold: 0.15,
     rootMargin: "0px 0px -10% 0px"
   });
 
@@ -231,7 +234,7 @@ function initAll() {
   initFadeSystem();
 }
 
-/* Webflow-safe load */
+/* Ensure DOM + Webflow ready */
 window.Webflow ||= [];
 window.Webflow.push(() => {
   setTimeout(initAll, 100);
