@@ -1,8 +1,8 @@
 /* =========================================
-   SAVOYA CORE JS SYSTEM (FINAL v2)
+   SAVOYA CORE JS SYSTEM (FINAL v3)
    - Hero offset FIXED
    - Parallax stable
-   - Fade system
+   - TRUE stagger fade (fixed)
    - Carousels
 ========================================= */
 
@@ -66,7 +66,7 @@ function initHeroParallax() {
     }
   });
 
-  /* 🔥 FIXED INIT TIMING */
+  /* FIXED INIT TIMING */
   setTimeout(setHeroLayout, 50);
 
   window.addEventListener('load', () => {
@@ -196,7 +196,7 @@ function initLogoCarousel() {
 }
 
 /* =========================
-   FADE SYSTEM
+   FADE SYSTEM (TRUE STAGGER)
 ========================= */
 function initFadeSystem() {
   const sections = document.querySelectorAll('.fade-section');
@@ -209,8 +209,9 @@ function initFadeSystem() {
       const items = entry.target.querySelectorAll('.fade-in, .fade-scale');
 
       items.forEach((el, index) => {
-        el.style.setProperty('--delay', `${index * 120}ms`);
-        el.classList.add('show');
+        setTimeout(() => {
+          el.classList.add('show');
+        }, index * 120); // 👈 TRUE stagger
       });
 
       observer.unobserve(entry.target);
