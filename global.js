@@ -1,13 +1,13 @@
 /* =========================================
-   SAVOYA CORE JS SYSTEM (FINAL)
-   - Parallax (fixed)
-   - Fade system (working)
+   SAVOYA CORE JS SYSTEM (FINAL v2)
+   - Hero offset FIXED
+   - Parallax stable
+   - Fade system
    - Carousels
-   - Webflow-safe init
 ========================================= */
 
 /* =========================
-   HERO PARALLAX
+   HERO PARALLAX (FIXED)
 ========================= */
 function initHeroParallax() {
   const hero = document.querySelector('.v2-hero-parallax');
@@ -20,7 +20,7 @@ function initHeroParallax() {
   const content = hero.querySelector('.v2-hero-content');
 
   function setHeroLayout() {
-    const navHeight = nav ? nav.offsetHeight : 0;
+    const navHeight = nav ? nav.getBoundingClientRect().height : 0;
 
     hero.style.top = navHeight + 'px';
     hero.style.height = `calc(85vh - ${navHeight}px)`;
@@ -32,7 +32,6 @@ function initHeroParallax() {
   function handleScroll() {
     const scrollY = window.scrollY;
     const heroHeight = hero.offsetHeight;
-
     if (!heroHeight) return;
 
     let progress = Math.min(scrollY / (heroHeight * 0.75), 1);
@@ -57,7 +56,6 @@ function initHeroParallax() {
   }
 
   let ticking = false;
-
   window.addEventListener('scroll', () => {
     if (!ticking) {
       requestAnimationFrame(() => {
@@ -68,8 +66,12 @@ function initHeroParallax() {
     }
   });
 
-  setHeroLayout();
-  handleScroll();
+  /* 🔥 FIXED INIT TIMING */
+  setTimeout(setHeroLayout, 50);
+
+  window.addEventListener('load', () => {
+    setHeroLayout();
+  });
 
   window.addEventListener('resize', setHeroLayout);
 }
@@ -159,7 +161,6 @@ function initLogoCarousel() {
 
   animate();
 
-  /* Drag */
   carousel.addEventListener('mousedown', (e) => {
     isDragging = true;
     startX = e.pageX - scrollX;
@@ -175,7 +176,6 @@ function initLogoCarousel() {
 
   window.addEventListener('mouseup', () => isDragging = false);
 
-  /* Touch */
   carousel.addEventListener('touchstart', (e) => {
     isDragging = true;
     startX = e.touches[0].pageX - scrollX;
@@ -191,13 +191,12 @@ function initLogoCarousel() {
 
   window.addEventListener('touchend', () => isDragging = false);
 
-  /* Hover slow */
   carousel.addEventListener('mouseenter', () => speed = 0.1);
   carousel.addEventListener('mouseleave', () => speed = 0.4);
 }
 
 /* =========================
-   FADE SYSTEM (FINAL)
+   FADE SYSTEM
 ========================= */
 function initFadeSystem() {
   const sections = document.querySelectorAll('.fade-section');
@@ -225,7 +224,7 @@ function initFadeSystem() {
 }
 
 /* =========================
-   INIT (WEBFLOW SAFE)
+   INIT
 ========================= */
 function initAll() {
   initHeroParallax();
@@ -234,7 +233,7 @@ function initAll() {
   initFadeSystem();
 }
 
-/* Ensure DOM + Webflow ready */
+/* Webflow-safe init */
 window.Webflow ||= [];
 window.Webflow.push(() => {
   setTimeout(initAll, 100);
