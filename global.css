@@ -1,28 +1,27 @@
-<style>
+/* =========================================
+   SAVOYA GLOBAL CSS SYSTEM
+   - Fade animations
+   - Parallax base
+   - Performance optimized
+========================================= */
 
-/* ============================= */
-/* BS ICONS */
-/* ============================= */
-  
-.icon-bold {
-  stroke: currentColor;
-  stroke-width: 0.75;
+/* =========================
+   FADE BASE (INITIAL STATE)
+========================= */
+.fade-in,
+.fade-scale {
+  opacity: 0;
+  will-change: opacity, transform;
 }
 
-/* ============================= */
-/* FADE-IN SYSTEM START */
-/* ============================= */
-
+/* =========================
+   FADE-IN (OPACITY ONLY)
+========================= */
 .fade-in {
-  opacity: 0;
-  transform: translateY(12px);
+  transform: translateY(8px);
   transition: 
-    opacity 0.9s ease,
-    transform 0.9s ease;
-  transition-delay: var(--delay, 0ms);
-
-  /* Performance boost */
-  will-change: opacity, transform;
+    opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1),
+    transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .fade-in.show {
@@ -30,26 +29,16 @@
   transform: translateY(0);
 }
 
-/* =========================== */
-/* FADE-IN SYSTEM END */
-/* =========================== */
-
-/* ============================= */
-/* SCALE + FADE-IN SYSTEM START */
-/* ============================= */
-
+/* =========================
+   FADE-SCALE (PREMIUM FEEL)
+========================= */
 .fade-scale {
-  opacity: 0;
   transform: scale(0.96);
-  transform-origin: center;
+  transform-origin: top center;
 
   transition: 
-    opacity 0.5s ease,
-    transform 0.5s ease;
-
-  transition-delay: var(--delay, 0ms);
-
-  will-change: opacity, transform;
+    opacity 0.9s cubic-bezier(0.25, 1, 0.5, 1),
+    transform 0.9s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .fade-scale.show {
@@ -57,382 +46,60 @@
   transform: scale(1);
 }
 
-/* =========================== */
-/* SCALE + FADE-IN SYSTEM END */
-/* =========================== */
-
-/* =========================================
-   V2 HERO PARALLAX (PREMIUM + SMOOTH)
-   - BG wraps content (Webflow structure)
-   - No blur (performance safe)
-========================================= */
-
-/* HERO (fixed under nav) */
+/* =========================
+   HERO PARALLAX BASE
+========================= */
 .v2-hero-parallax {
-  position: fixed;
-  top: 65px; /* matches your nav height */
+  position: absolute; /* IMPORTANT for JS offset */
+  top: 0;
   left: 0;
-  width: 120%;
-  height: 85vh;
-  z-index: 1;
-  overflow: visible !important;
-
+  width: 100%;
   will-change: transform, opacity;
 }
 
-/* BG WRAPPER (holds image + content) */
+/* Background layer */
 .v2-hero-bg {
-  position: absolute;
-
-  top: -25%;
-  left: -10%;
-  width: 120%;
-  height: 200%;
-
-  background-size: cover;
-  background-position: center;
-
-  z-index: 1;
+  will-change: transform;
 }
 
-/* BACKGROUND BLEED (prevents edges during movement) */
-.v2-hero-bg::before {
-  content: '';
-  position: absolute;
-
-  top: -25%;
-  left: -15%;
-  width: 130%;
-  height: 160%;
-
-  background: inherit;
-  background-size: cover;
-  background-position: center;
-
-  z-index: 0;
-}
-
-/* HERO CONTENT (always above background) */
+/* Content layer */
 .v2-hero-content {
-  position: relative;
-  z-index: 2;
+  will-change: transform, opacity;
 }
 
-/* MAIN PAGE CONTENT (scrolls over hero) */
+/* =========================
+   CONTENT WRAPPER
+========================= */
 .v2-content-wrapper {
   position: relative;
   z-index: 2;
-
-  margin-top: 85vh;
-  background: #fff;
 }
 
-/* PREMIUM VIGNETTE (subtle, not heavy) */
-.v2-hero-parallax::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-
-  background: radial-gradient(
-    ellipse at center,
-    rgba(0,0,0,0) 50%,
-    rgba(0,0,0,0.15) 100%
-  );
-
-  pointer-events: none;
-}
-
-/* =========================================
-   FADE SECTION SYSTEM (SAFE)
-========================================= */
-
-/* initial hidden state */
-.fade-in {
-  opacity: 0;
-  transform: translateY(24px);
-
-  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
-              transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-/* visible state */
-.fade-in.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* =========================================
-   MOBILE RESET (disable parallax)
-========================================= */
-
-@media (max-width: 1024px) {
-  .v2-hero-parallax {
-    position: relative;
-    top: 0;
-    height: auto;
-
-    transform: none !important;
-    opacity: 1 !important;
-  }
-
-  .v2-content-wrapper {
-    margin-top: 0;
-  }
-}
-
-/* ============================= ************************************************/
-/* STRIKE / DASHED LINE START   */
-/* ============================= */
-
-.strike-line {
-  width: 100%;
-  height: 2px;
-  margin: 16px 0;
-
-  /* Dash style */
-  background: repeating-linear-gradient(
-    to right,
-    #cfcfcf,
-    #cfcfcf 6px,
-    transparent 6px,
-    transparent 14px
-  );
-
-  /* Optional subtle animation */
-  animation: dashMove 12s linear infinite;
-}
-
-/* Animation */
-@keyframes dashMove {
-  from {
-    background-position: 0 0;
-  }
-  to {
-    background-position: 100px 0;
-  }
-}
-
-/* =========================== */
-/* STRIKE / DASHED LINE END   */
-/* =========================== */
-
-/* =========================================
-   LOGO CAROUSEL WRAPPER
-   - Controls overflow + interaction state
-========================================= */
-.logo-carousel {
-  overflow: hidden;           /* hides scrolling logos outside frame */
-  width: 100%;                /* full width container */
-  position: relative;         /* required for fade overlays */
-  cursor: grab;               /* visual cue for drag interaction */
-}
-
-/* Cursor changes while dragging */
-.logo-carousel:active {
-  cursor: grabbing;
-}
-
-/* =========================================
-   LOGO TRACK (MOVING ELEMENT)
-   - This is what translates horizontally
-========================================= */
-.logo-track {
-  display: flex;              /* horizontal layout */
-  width: max-content;         /* expands to fit all logos */
-  will-change: transform;     /* performance optimization (GPU hint) */
-}
-
-/* =========================================
-   LOGO STYLING
-   - Controls spacing, scale, and interaction
-========================================= */
-.logo-track img {
-  height: 152px;               /* 🔧 adjust logo size */
-  margin: 0 0px;            /* 🔧 horizontal spacing between logos */
-  opacity: 0.6;              /* default muted look */
-  transform: scale(1);       /* base scale */
-  transition: 
-    opacity 0.3s ease, 
-    transform 0.3s ease;     /* smooth hover animation */
-  user-select: none;         /* prevents text/image selection during drag */
-}
-
-/* Hover interaction (premium feel) */
-.logo-track img:hover {
-  opacity: 1;                /* full visibility */
-  transform: scale(1.08);    /* subtle zoom */
-}
-
-/* =========================================
-   EDGE FADE EFFECT (PREMIUM LOOK)
-   - Creates gradient fade on left/right edges
-   - Match background color (white or dark)
-========================================= */
-.logo-carousel::before,
-.logo-carousel::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  width: 140px;              /* 🔧 width of fade area */
-  height: 100%;
-  z-index: 2;                /* sits above logos */
-  pointer-events: none;      /* allows interaction through fade */
-}
-
-
-
-/* 🔥 NOTE:
-   If using dark background:
-   change 'white' → '#000'
-*/
-
-  
-
-/* =========================================
-   STATS CAROUSEL WRAPPER
-========================================= */
-.stats-carousel {
-  position: relative;
-  overflow: hidden;
-}
-
-/* =========================================
-   STATS TRACK
-   - Mobile / tablet = horizontal scroll
-========================================= */
+/* =========================
+   STATS CAROUSEL
+========================= */
 .stats-track {
   display: flex;
   flex-wrap: nowrap;
   will-change: transform;
-  gap: 24px;
 }
 
-/* =========================================
-   STAT CARD (MOBILE / TABLET)
-========================================= */
-.stat-card {
-  flex: 0 0 auto;
-  min-width: 260px;
-  padding: 20px 30px;
-  text-align: left;
-  color: #111;
+/* =========================
+   LOGO CAROUSEL
+========================= */
+.logo-track {
+  display: flex;
+  will-change: transform;
 }
 
-/* =========================================
-   INNER CONTENT (FADE)
-========================================= */
-.stat-inner {
-  opacity: 0 !important;
-  transform: translateY(10px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+/* =========================
+   PERFORMANCE HELPERS
+========================= */
+.fade-in,
+.fade-scale,
+.v2-hero-parallax,
+.stats-track,
+.logo-track {
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
 }
-
-.stat-inner.is-visible {
-  opacity: 1 !important;
-  transform: translateY(0);
-}
-
-/* =========================================
-   STAGGER
-========================================= */
-.stat-card:nth-child(1) .stat-inner { transition-delay: 0.1s; }
-.stat-card:nth-child(2) .stat-inner { transition-delay: 0.2s; }
-.stat-card:nth-child(3) .stat-inner { transition-delay: 0.3s; }
-.stat-card:nth-child(4) .stat-inner { transition-delay: 0.4s; }
-.stat-card:nth-child(5) .stat-inner { transition-delay: 0.5s; }
-
-/* =========================================
-   TYPOGRAPHY
-========================================= */
-.stat-card h3 {
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  margin-bottom: 8px;
-  color: #111;
-}
-
-.stat-card p {
-  font-size: 14px;
-  line-height: 1.4;
-  opacity: 0.7;
-  color: #111;
-}
-
-/* =========================================
-   WEBFLOW FADE-IN OVERRIDE
-========================================= */
-.stats-carousel .fade-in {
-  opacity: 1 !important;
-  transform: none !important;
-}
-
-/* =========================================
-   EDGE FADE (OFF by default)
-========================================= */
-.stats-carousel::before,
-.stats-carousel::after {
-  display: none;
-}
-
-/* =========================================
-   TABLET / MOBILE (<=1024px)
-   - Show gradient edges
-========================================= */
-@media (max-width: 1024px) {
-  .stats-carousel::before,
-  .stats-carousel::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 40px;
-    pointer-events: none;
-    z-index: 2;
-    display: block;
-  }
-
-  .stats-carousel::before {
-    left: 0;
-    background: linear-gradient(to right, white, transparent);
-  }
-
-  .stats-carousel::after {
-    right: 0;
-    background: linear-gradient(to left, white, transparent);
-  }
-}
-
-/* =========================================
-   DESKTOP (1280px+)
-   - Force 5 cards to fit perfectly
-========================================= */
-@media (min-width: 1280px) {
-
-  .stats-carousel {
-    overflow: visible;
-  }
-
-  .stats-track {
-    width: 100%;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 20px; /* tighter to fit */
-    transform: none !important;
-  }
-
-  .stat-card {
-    flex: 1 1 0;
-    min-width: 0;
-    max-width: 220px; /* KEY FIX */
-    padding: 16px 20px; /* tighter padding */
-  }
-
-  .stats-carousel::before,
-  .stats-carousel::after {
-    display: none !important;
-  }
-}
-
-</style>
-
-
