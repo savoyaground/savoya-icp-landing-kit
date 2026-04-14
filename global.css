@@ -17,7 +17,7 @@ body {
 ========================= */
 .v2-hero-parallax {
   position: absolute;
-  top: 65px;
+  top: 65px !important;
   left: 0;
   width: 100%;
   height: calc(85vh - 65px);
