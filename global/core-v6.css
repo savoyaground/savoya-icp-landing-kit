@@ -1,0 +1,274 @@
+<style>
+  /* =========================================
+   SAVOYA CORE CSS (FINAL v3)
+   - Clean fade system
+   - Stats fade FIXED
+   - Hero stable
+========================================= */
+
+/* ============================= */
+/* ICONS */
+/* ============================= */
+.icon-bold {
+  stroke: currentColor;
+  stroke-width: 0.75;
+}
+
+/* ============================= */
+/* FADE-IN SYSTEM */
+/* ============================= */
+.fade-in {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+.fade-in.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ============================= */
+/* SCALE + FADE */
+/* ============================= */
+.fade-scale {
+  opacity: 0;
+  transform: scale(0.96);
+  transform-origin: center;
+
+  transition: opacity 0.5s ease,
+              transform 0.5s ease;
+
+  will-change: opacity, transform;
+}
+
+.fade-scale.show {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* =========================================
+   HERO PARALLAX
+========================================= */
+
+.v2-hero-parallax {
+  position: fixed;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 1;
+  overflow: visible !important;
+
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+.v2-hero-bg {
+  position: absolute;
+  top: -25%;
+  left: -10%;
+  width: 120%;
+  height: 200%;
+  background-size: cover;
+  background-position: center;
+  z-index: 1;
+}
+
+.v2-hero-bg::before {
+  content: '';
+  position: absolute;
+  top: -25%;
+  left: -15%;
+  width: 130%;
+  height: 160%;
+  background: inherit;
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+}
+
+.v2-hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+html.loaded .v2-content-wrapper {
+  margin-top: 0;
+}
+
+.v2-content-wrapper {
+  position: relative;
+  z-index: 2;
+  background: #fff;
+
+  /* 👇 prevents blink */
+  margin-top: 85vh;
+}
+
+/* vignette */
+.v2-hero-parallax::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+
+  background: radial-gradient(
+    ellipse at center,
+    rgba(0,0,0,0) 50%,
+    rgba(0,0,0,0.15) 100%
+  );
+
+  pointer-events: none;
+}
+
+/* =========================================
+   MOBILE RESET
+========================================= */
+@media (max-width: 1024px) {
+  .v2-hero-parallax {
+    position: relative;
+    top: 0;
+    height: auto;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+
+  .v2-content-wrapper {
+    margin-top: 0;
+  }
+}
+
+/* ============================= */
+/* STRIKE LINE */
+/* ============================= */
+.strike-line {
+  width: 100%;
+  height: 2px;
+  margin: 16px 0;
+
+  background: repeating-linear-gradient(
+    to right,
+    #cfcfcf,
+    #cfcfcf 6px,
+    transparent 6px,
+    transparent 14px
+  );
+
+  animation: dashMove 12s linear infinite;
+}
+
+@keyframes dashMove {
+  from { background-position: 0 0; }
+  to { background-position: 100px 0; }
+}
+
+/* =========================================
+   LOGO CAROUSEL
+========================================= */
+.logo-carousel {
+  overflow: hidden;
+  width: 100%;
+  position: relative;
+  cursor: grab;
+}
+
+.logo-carousel:active {
+  cursor: grabbing;
+}
+
+.logo-track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+}
+
+.logo-track img {
+  height: 152px;
+  margin: 0;
+  opacity: 0.6;
+  transform: scale(1);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  user-select: none;
+}
+
+.logo-track img:hover {
+  opacity: 1;
+  transform: scale(1.08);
+}
+
+/* =========================================
+   STATS CAROUSEL (FIXED FADE)
+========================================= */
+.stats-carousel {
+  position: relative;
+  overflow: hidden;
+}
+
+.stats-track {
+  display: flex;
+  flex-wrap: nowrap;
+  will-change: transform;
+  gap: 24px;
+}
+
+.stat-card {
+  flex: 0 0 auto;
+  min-width: 260px;
+  padding: 20px 30px;
+  text-align: left;
+  color: #111;
+}
+
+/* ✅ FADE NOW WORKS */
+.stat-inner {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.stat-inner.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* TYPOGRAPHY */
+.stat-card h3 {
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+  color: #111;
+}
+
+.stat-card p {
+  font-size: 14px;
+  line-height: 1.4;
+  opacity: 0.7;
+  color: #111;
+}
+
+/* =========================================
+   DESKTOP (1280+)
+========================================= */
+@media (min-width: 1280px) {
+  .stats-carousel {
+    overflow: visible;
+  }
+
+  .stats-track {
+    width: 100%;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    transform: none !important;
+  }
+
+  .stat-card {
+    flex: 1 1 0;
+    min-width: 0;
+    max-width: 220px;
+    padding: 16px 20px;
+  }
+}
+</style>
