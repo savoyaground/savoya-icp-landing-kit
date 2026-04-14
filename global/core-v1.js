@@ -21,12 +21,15 @@ function initHeroParallax() {
 
   function setHeroLayout() {
     const navHeight = nav ? nav.getBoundingClientRect().height : 0;
+     
 
     hero.style.top = navHeight + 'px';
     hero.style.height = `calc(85vh - ${navHeight}px)`;
 
     const totalHeroHeight = hero.offsetHeight + navHeight;
     contentWrapper.style.marginTop = totalHeroHeight + 'px';
+
+    contentWrapper.style.opacity = '1';
   }
 
   function handleScroll() {
