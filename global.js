@@ -1,4 +1,6 @@
-/* =========================================
+
+
+  /* =========================================
    SAVOYA CORE JS SYSTEM (FINAL v3)
    - Hero offset FIXED
    - Parallax stable
@@ -37,7 +39,7 @@ function initHeroParallax() {
     let progress = Math.min(scrollY / (heroHeight * 0.75), 1);
     const eased = 1 - Math.pow(1 - progress, 3);
 
-    const translateY = eased * heroHeight * 0.12;
+    const translateY = -eased * heroHeight * 0.12;
     const opacity = 1 - (eased * 0.8);
     const scale = 1 - (eased * 0.04);
 
@@ -46,7 +48,7 @@ function initHeroParallax() {
     hero.style.transformOrigin = 'center top';
 
     if (bg) {
-      bg.style.transform = `translate3d(0, ${translateY * 0.5}px, 0)`;
+      bg.style.transform = `translate3d(0, ${-translateY * 0.5}px, 0)`;
     }
 
     if (content) {
@@ -239,3 +241,6 @@ window.Webflow ||= [];
 window.Webflow.push(() => {
   setTimeout(initAll, 100);
 });
+
+
+
