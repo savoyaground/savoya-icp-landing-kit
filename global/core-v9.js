@@ -1,5 +1,3 @@
-
-
 /* =========================================
    HERO PARALLAX (FINAL - STABLE)
 ========================================= */
@@ -25,12 +23,12 @@ function initHeroParallax() {
      HERO (scale + fade away blur)
   ============================= */
 const scale = 1 - eased * 0.04;
-const opacity = 1 - eased * 0.9;
-const blur = eased * 6; // 👈 tweak this
+//const opacity = 1 - eased * 0.9;
+//const blur = eased * 6; // 👈 tweak this
 
-hero.style.transform = `scale(${scale})`;
-hero.style.opacity = opacity;
-hero.style.filter = `blur(${blur}px)`;
+ hero.style.transform = `scale(${scale})`;
+ //hero.style.opacity = opacity;
+//hero.style.filter = `blur(${blur}px)`;
 
   /* =============================
      BG (depth)
