@@ -1,0 +1,207 @@
+
+
+/* =========================================
+   VEHICLE NAV WRAPPER (STICKY)
+========================================= */
+.vehicle-nav-wrapper {
+  position: sticky;
+  top: 64px;
+  z-index: 30;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  transition: all 0.3s ease;
+}
+
+/* =========================================
+   NAV HIDE STATE (PAST VEHICLES)
+========================================= */
+.vehicle-nav-wrapper.is-hidden {
+  opacity: 0;
+  transform: translateY(-12px);
+  pointer-events: none;
+}
+
+/* =========================================
+   VEHICLE NAV
+========================================= */
+.vehicle-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+}
+
+/* =========================================
+   VEHICLE LINK
+========================================= */
+.vehicle-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: #111;
+  position: relative;
+  transition: transform 0.3s ease, opacity 0.3s ease; 
+}
+
+.vehicle-link:hover {
+  transform: translateY(-4px);
+}
+
+.vehicle-link.active {
+  opacity: 0.7;
+}
+
+/* =========================================
+   UNDERLINE (FULL WIDTH, LEFT → RIGHT)
+========================================= */
+.vehicle-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0px;
+  width: 100%;
+  height: 4px;
+  background: #111;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.3s ease;
+}
+
+.vehicle-link.active::after {
+  transform: scaleX(1);
+}
+
+/* =========================================
+   VEHICLE IMAGE
+========================================= */
+.vehicle-image {
+  width: 100%;
+  max-width: 216px;
+  height: auto;
+  transition: all 0.3s ease; 
+  algin-self: center;
+}
+
+.vehicle-nav-wrapper.is-stuck .vehicle-image {
+  max-width: 100px;
+}
+
+/* =========================================
+   VEHICLE LABEL
+========================================= */
+.vehicle-label {
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  text-align: center;
+  white-space: nowrap;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+.vehicle-link:hover .vehicle-label,
+.vehicle-link.active .vehicle-label {
+  opacity: 1;
+}
+
+/* =========================================
+   MOBILE SCROLL / DRAG
+========================================= */
+@media (max-width: 1279px) {
+  .vehicle-nav {
+    justify-content: flex-start;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-x;
+    scroll-snap-type: x mandatory;
+    cursor: grab;
+  }
+
+  .vehicle-nav.dragging {
+    cursor: grabbing;
+  }
+
+  .vehicle-link {
+    scroll-snap-align: center;
+  }
+}
+
+/* =========================================
+   HIDE SCROLLBAR
+========================================= */
+.vehicle-nav::-webkit-scrollbar {
+  display: none;
+}
+
+.vehicle-nav {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* =========================================
+   ANCHOR OFFSET (KEEP THIS)
+========================================= */
+.vehicle-anchor {
+  position: relative;
+  display: block;
+  top: -190px;
+  visibility: hidden;
+  pointer-events: none;
+  height: 0;
+}
+</style>
+
+
+<style>
+/* =========================================
+   FORCE HORIZONTAL SCROLL (FIXED)
+========================================= */
+
+.table-scroll > * {
+  min-width: max-content;
+}
+
+.table-scroll {
+  width: 100%;
+  position: relative;
+}
+
+  
+
+/* Mobile / Tablet */
+@media (max-width: 1024px) {
+  .table-scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* 🔑 THIS is the real fix */
+  .table-scroll > * {
+    min-width: 1024px;
+  }
+
+  /* Prevent flex shrink */
+  .table-col {
+    flex-shrink: 0;
+  }
+
+  /* Fade indicator */
+  .table-scroll::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 40px;
+    height: 100%;
+    pointer-events: none;
+    background: linear-gradient(to left, #fff, transparent);
+    transition: opacity 0.2s ease;
+  }
+
+  .table-scroll.scrolled-end::after {
+    opacity: 0;
+  }
+}
