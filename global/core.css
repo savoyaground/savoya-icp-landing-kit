@@ -164,6 +164,21 @@ body {
 }
 
 /* =========================================
+   LOGO TRACK (TIGHT VARIANT)
+   Only affects this instance
+========================================= */
+.logo-track--tight {
+  gap: clamp(40px, 6vw, 100px);
+}
+
+/* optional: slightly tighter on smaller screens */
+@media (max-width: 991px) {
+  .logo-track--tight {
+    gap: 48px;
+  }
+}
+
+/* =========================================
    STATS CAROUSEL
 ========================================= */
 .stats-carousel {
