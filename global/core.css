@@ -235,34 +235,3 @@ body {
 }
 
 
-/* =========================================
-   STAT BAR FIX
-========================================= */
-.statbar-icon-block {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 24px;
-}
-
-/* critical: lordicon behaves inline */
-.statbar-icon-block .lordicon-dynamic {
-  display: inline-block;
-  width: 40px;
-  height: 40px;
-}
-
-/* =========================================
-   MOBILE FIX
-========================================= */
-@media (max-width: 767px) {
-  .statbar-icon-block {
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    gap: 16px;
-  }
-
-  .statbar-icon-block .lordicon-dynamic {
-    min-width: 40px;
-  }
-}
