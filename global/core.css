@@ -236,56 +236,33 @@ body {
 
 
 /* =========================================
-   ICON WRAPPER
-========================================= */
-.icon-wrap {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-}
-
-/* =========================================
-   LORDICON BASE FIX
-========================================= */
-lord-icon {
-  width: 48px;
-  height: 48px;
-  display: block;
-}
-
-/* =========================================
-   PERSONA BLOCK
-========================================= */
-.persona-icon-block {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
-  min-height: 40px;
-}
-
-/* =========================================
-   STATBAR BLOCK
+   STAT BAR FIX
 ========================================= */
 .statbar-icon-block {
   display: flex;
   justify-content: space-between;
-  gap: 16px;
-  min-height: 40px;
+  align-items: center;
+  gap: 24px;
+}
+
+/* critical: lordicon behaves inline */
+.statbar-icon-block .lordicon-dynamic {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
 }
 
 /* =========================================
-   MOBILE FIXES
+   MOBILE FIX
 ========================================= */
 @media (max-width: 767px) {
-  lord-icon {
-    width: 32px;
-    height: 32px;
+  .statbar-icon-block {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 16px;
   }
 
-  .persona-icon-block,
-  .statbar-icon-block {
-    min-height: 32px;
+  .statbar-icon-block .lordicon-dynamic {
+    min-width: 40px;
   }
 }
-
