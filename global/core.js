@@ -10,7 +10,10 @@ function initHeroParallax() {
   const content = hero.querySelector('.v2-hero-content');
 
   function handleScroll() {
-    const scrollY = window.scrollY;
+   const headerOffset = 65; 
+     
+    // const scrollY = window.scrollY; // original
+    const scrollY = Math.max(0, window.scrollY - headerOffset);
     const heroHeight = hero.offsetHeight;
     if (!heroHeight) return;
 
