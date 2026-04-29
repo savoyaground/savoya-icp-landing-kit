@@ -1,3 +1,4 @@
+<style>
 
 /* =========================================
    CORE RESET
@@ -43,14 +44,14 @@ body {
 }
 
 /* =========================================
-   HERO PARALLAX (UNCHANGED)
+   HERO PARALLAX
 ========================================= */
 .v2-hero-parallax {
   position: fixed;
   top: 65px;
   left: 0;
   width: 100%;
-  height: 70vh; /* was 85vh */
+  height: 70vh;
   overflow: hidden;
   z-index: 1;
 }
@@ -128,14 +129,13 @@ body {
 }
 
 /* =========================================
-   CONTENT WRAPPER (CRITICAL FIX)
+   CONTENT WRAPPER (FINAL CLEAN FIX)
 ========================================= */
 .v2-content-wrapper {
   position: relative;
   z-index: 2;
   background: #fff;
-    margin-top: calc(70vh + 65px); /* new edit */
-  /* THIS restores layout under fixed hero */
+
 }
 
 /* =========================================
@@ -164,16 +164,14 @@ body {
 
 /* =========================================
    LOGO TRACK (TIGHT VARIANT)
-   Only affects this instance
 ========================================= */
 .logo-track--tight {
   gap: clamp(40px, 6vw, 100px);
 }
 
-/* optional: slightly tighter on smaller screens */
 @media (max-width: 991px) {
   .logo-track--tight {
-    gap: 48px;
+    gap: 0px;
   }
 }
 
@@ -190,7 +188,6 @@ body {
   gap: 0px;
   flex-wrap: nowrap;
   will-change: transform;
-    width: max-content;
 }
 
 .stat-card {
@@ -216,8 +213,7 @@ body {
   .v2-hero-parallax {
     position: relative;
     top: 0;
-    height: auto;
-    min-height: 70vh; /* min-height: 70vh; */
+    height: 70vh;
   }
 
   .v2-content-wrapper {
@@ -226,9 +222,10 @@ body {
 }
 
 /* =========================================
-  LORDICON
+   LORDICON
 ========================================= */
-
-  .lordicon-dynamic {
+.lordicon-dynamic {
   transform: scale(1.1);
 }
+
+</style>
